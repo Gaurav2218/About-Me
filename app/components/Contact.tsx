@@ -2,20 +2,18 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import GlitchText from './GlitchText'
 import {
   FaGithub,
   FaLinkedin,
   FaTwitter,
   FaEnvelope,
-  FaInstagram,
+  FaTerminal,
 } from 'react-icons/fa'
 
 const socialLinks = [
-  { name: 'GitHub', icon: FaGithub, url: 'https://github.com', color: 'text-gray-300 hover:text-white' },
-  { name: 'LinkedIn', icon: FaLinkedin, url: 'https://linkedin.com', color: 'text-gray-300 hover:text-blue-400' },
-  { name: 'Twitter', icon: FaTwitter, url: 'https://twitter.com', color: 'text-gray-300 hover:text-cyan-400' },
-  { name: 'Instagram', icon: FaInstagram, url: 'https://instagram.com', color: 'text-gray-300 hover:text-pink-400' },
+  { name: 'GitHub', icon: FaGithub, url: 'https://github.com/Gaurav2218', label: 'GH_REPO' },
+  { name: 'LinkedIn', icon: FaLinkedin, url: 'https://linkedin.com/in/gaurav2sharma', label: 'LINKED_NET' },
+  { name: 'Twitter', icon: FaTwitter, url: 'https://x.com/Gaurav2462218', label: 'X_FEED' },
 ]
 
 export default function Contact() {
@@ -28,6 +26,14 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Construct mailto link
+    const subject = `Portfolio Transmission: ${formData.name}`
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    
+    // Open email client
+    window.location.href = `mailto:officialgaurav246@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
@@ -40,136 +46,123 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6">
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <GlitchText
-            text="Get In Touch"
-            className="text-5xl md:text-6xl font-bold mb-4"
-            neonColor="blue"
-          />
-          <div className="w-24 h-1 bg-neon-blue mx-auto mt-4"></div>
-          <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you!
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="glass rounded-lg p-8 border border-neon-blue/20"
-          >
-            <h3 className="text-2xl text-neon-blue mb-6">Let's Connect</h3>
-            <p className="text-gray-300 mb-8 leading-relaxed">
-              I'm always open to discussing new projects, creative ideas, or opportunities
-              to be part of your vision. Feel free to reach out through any of these channels.
-            </p>
+    <section id="contact" className="py-32 px-6 relative z-10">
+      <div className="container mx-auto max-w-6xl">
+        
+        <div className="grid lg:grid-cols-2 gap-12">
+          
+          {/* Left Panel - Info */}
+          <div className="p-12 border border-slate-800 bg-dark-card/80 backdrop-blur-xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden rounded-sm">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon-blue to-neon-cyan"></div>
             
-            <div className="space-y-4 mb-8">
-              <a
-                href="mailto:your.email@example.com"
-                className="flex items-center gap-3 text-gray-300 hover:text-neon-cyan transition-colors"
-              >
-                <FaEnvelope className="text-neon-cyan text-xl" />
-                <span>your.email@example.com</span>
-              </a>
+            <div className="mb-12">
+              <div className="flex items-center gap-3 text-neon-cyan mb-6">
+                <FaTerminal />
+                <span className="font-mono text-sm tracking-widest">SECURE_CHANNEL_V1.0</span>
+              </div>
+              <h2 className="text-4xl font-bold text-white mb-6 tracking-tight">Initiate Uplink</h2>
+              <p className="text-gray-400 leading-relaxed font-light">
+                Open frequency for technical collaboration, system architecture consultation, or algorithmic inquiries. 
+                Encryption protocols active.
+              </p>
             </div>
 
-            <div>
-              <h4 className="text-xl text-neon-magenta mb-4">Follow Me</h4>
-              <div className="flex gap-4">
+            <div className="space-y-8">
+              <a 
+                href="mailto:officialgaurav246@gmail.com" 
+                className="flex items-center gap-4 p-4 border border-slate-800 hover:border-neon-cyan/50 hover:bg-neon-cyan/5 transition-all group"
+              >
+                <div className="bg-slate-900 p-3 text-neon-cyan group-hover:text-white transition-colors border border-slate-800">
+                  <FaEnvelope />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 font-mono mb-1 uppercase">Direct_Mail</div>
+                  <div className="text-white font-mono text-sm">officialgaurav246@gmail.com</div>
+                </div>
+              </a>
+
+              <div className="grid grid-cols-3 gap-4">
                 {socialLinks.map((social) => {
                   const Icon = social.icon
                   return (
-                    <motion.a
+                    <a
                       key={social.name}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${social.color} text-2xl transition-colors`}
-                      whileHover={{ scale: 1.2, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
+                      className="flex flex-col items-center justify-center p-4 border border-slate-800 hover:border-neon-magenta/50 hover:bg-neon-magenta/5 transition-all group"
                     >
-                      <Icon />
-                    </motion.a>
+                      <Icon className="text-2xl text-gray-400 group-hover:text-neon-magenta mb-3 transition-colors" />
+                      <span className="text-[10px] font-mono text-gray-500 group-hover:text-white tracking-wider uppercase">{social.label}</span>
+                    </a>
                   )
                 })}
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="glass rounded-lg p-8 border border-neon-magenta/20"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-neon-cyan mb-2">
-                  Name
+          {/* Right Panel - Form */}
+          <div className="p-12 border border-slate-800 bg-dark-card/80 backdrop-blur-xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative rounded-sm">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="relative group">
+                <label className="block text-xs font-mono text-neon-blue mb-2 uppercase tracking-wider group-focus-within:text-white transition-colors">
+                  // Your_Name
                 </label>
                 <input
                   type="text"
-                  id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-dark-card border border-neon-cyan/30 rounded-lg focus:outline-none focus:border-neon-cyan focus:ring-2 focus:ring-neon-cyan/50 text-white"
+                  className="w-full bg-dark-bg border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-neon-blue transition-all font-mono text-sm"
+                  placeholder="Input designation..."
                 />
               </div>
-              <div>
-                <label htmlFor="email" className="block text-neon-cyan mb-2">
-                  Email
+
+              <div className="relative group">
+                <label className="block text-xs font-mono text-neon-blue mb-2 uppercase tracking-wider group-focus-within:text-white transition-colors">
+                  // Email_Address
                 </label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-dark-card border border-neon-cyan/30 rounded-lg focus:outline-none focus:border-neon-cyan focus:ring-2 focus:ring-neon-cyan/50 text-white"
+                  className="w-full bg-dark-bg border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-neon-blue transition-all font-mono text-sm"
+                  placeholder="user@domain.sys"
                 />
               </div>
-              <div>
-                <label htmlFor="message" className="block text-neon-cyan mb-2">
-                  Message
+
+              <div className="relative group">
+                <label className="block text-xs font-mono text-neon-blue mb-2 uppercase tracking-wider group-focus-within:text-white transition-colors">
+                  // Message_Data
                 </label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-dark-card border border-neon-cyan/30 rounded-lg focus:outline-none focus:border-neon-cyan focus:ring-2 focus:ring-neon-cyan/50 text-white resize-none"
+                  className="w-full bg-dark-bg border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-neon-blue transition-all font-mono text-sm resize-none"
+                  placeholder="Input transmission..."
                 />
               </div>
-              <motion.button
+
+              <button
                 type="submit"
-                className="w-full px-8 py-3 bg-neon-magenta text-dark-bg rounded-lg hover:bg-neon-pink transition-all glow-magenta font-semibold"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="w-full py-4 bg-neon-blue hover:bg-blue-600 text-white font-mono text-sm tracking-widest uppercase transition-all relative overflow-hidden group"
               >
-                {submitted ? 'Message Sent!' : 'Send Message'}
-              </motion.button>
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  {submitted ? 'Packet Sent' : 'Transmit Data'}
+                  {!submitted && <span className="text-lg">→</span>}
+                </span>
+              </button>
             </form>
-          </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
   )
 }
-

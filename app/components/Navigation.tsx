@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const navItems = [
-  { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
@@ -20,16 +19,17 @@ export default function Navigation() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
       
-      const sections = navItems.map(item => item.href.substring(1))
-      const current = sections.find(section => {
+      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'contact']
+      for (const section of sections) {
         const element = document.getElementById(section)
         if (element) {
           const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
+          if (rect.top <= 200 && rect.bottom >= 200) {
+             setActiveSection(section)
+             break
+          }
         }
-        return false
-      })
-      if (current) setActiveSection(current)
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -41,43 +41,35 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass py-4' : 'py-6'
+        scrolled ? 'bg-dark-bg/90 backdrop-blur-md border-b border-slate-800 py-4' : 'py-6 bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
-          <motion.a
+          <a
             href="#home"
-            className="text-2xl font-bold text-neon-cyan hover:text-neon-magenta transition-colors"
-            whileHover={{ scale: 1.05 }}
+            className="text-xl font-bold tracking-tight text-slate-100 hover:text-white transition-colors"
           >
-            {'<Portfolio />'}
-          </motion.a>
+            GAURAV<span className="text-blue-500">.</span>
+          </a>
           
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => {
-              const isActive = activeSection === item.href.substring(1)
+              const sectionId = item.href.substring(1)
+              const isActive = activeSection === sectionId
+              
               return (
-                <motion.a
+                <a
                   key={item.name}
                   href={item.href}
-                  className={`relative px-3 py-2 transition-colors ${
+                  className={`text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-neon-cyan'
-                      : 'text-gray-400 hover:text-neon-blue'
+                      ? 'text-blue-400'
+                      : 'text-slate-400 hover:text-slate-200'
                   }`}
-                  whileHover={{ scale: 1.1 }}
                 >
                   {item.name}
-                  {isActive && (
-                    <motion.span
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-neon-cyan"
-                      layoutId="activeSection"
-                      initial={false}
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </motion.a>
+                </a>
               )
             })}
           </div>
@@ -86,4 +78,3 @@ export default function Navigation() {
     </motion.nav>
   )
 }
-

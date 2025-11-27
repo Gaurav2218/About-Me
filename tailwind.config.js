@@ -9,42 +9,34 @@ module.exports = {
     extend: {
       colors: {
         neon: {
-          cyan: '#00ffff',
-          magenta: '#ff00ff',
-          blue: '#0080ff',
-          purple: '#8000ff',
-          pink: '#ff0080',
+          cyan: '#00f3ff', // Super Bright Cyan
+          magenta: '#ff00ff', // Back to Bright Magenta for contrast
+          blue: '#2563eb', // Rich Electric Blue
+          purple: '#9333ea', // Deep Purple
+          gold: '#facc15', // Gold for high contrast
         },
         dark: {
-          bg: '#0a0a0a',
-          card: '#111111',
-          border: '#1a1a1a',
+          bg: '#020617', // Very Dark Slate/Blue (Almost Black)
+          card: '#0f172a', // Dark Slate
+          border: '#1e293b', // Lighter Slate
         },
       },
       boxShadow: {
-        'neon-cyan': '0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff',
-        'neon-magenta': '0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff',
-        'neon-blue': '0 0 10px #0080ff, 0 0 20px #0080ff, 0 0 30px #0080ff',
+        'neon-cyan': '0 0 20px rgba(0, 243, 255, 0.5)',
+        'neon-magenta': '0 0 20px rgba(255, 0, 255, 0.5)',
+        'neon-blue': '0 0 20px rgba(37, 99, 235, 0.5)',
       },
       animation: {
-        'glitch': 'glitch 0.3s infinite',
-        'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
-        glitch: {
-          '0%, 100%': { transform: 'translate(0)' },
-          '20%': { transform: 'translate(-2px, 2px)' },
-          '40%': { transform: 'translate(-2px, -2px)' },
-          '60%': { transform: 'translate(2px, 2px)' },
-          '80%': { transform: 'translate(2px, -2px)' },
-        },
-        'pulse-neon': {
-          '0%, 100%': { opacity: 1, boxShadow: '0 0 10px currentColor, 0 0 20px currentColor' },
-          '50%': { opacity: 0.8, boxShadow: '0 0 5px currentColor, 0 0 10px currentColor' },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
         },
       },
     },
   },
   plugins: [],
 }
-

@@ -1,82 +1,49 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import ParticleBackground from './ParticleBackground'
-import GlitchText from './GlitchText'
 
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <ParticleBackground />
+      {/* Overlay for better text readability against particles if needed */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/50 to-dark-bg pointer-events-none z-0"></div>
+      
       <div className="container mx-auto px-6 z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-5xl mx-auto text-center"
         >
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-neon-cyan mb-4 text-lg"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-card/80 border border-neon-cyan/30 backdrop-blur-md mb-8 shadow-[0_0_15px_rgba(0,243,255,0.2)]"
           >
-            Welcome to my digital realm
-          </motion.p>
-          <GlitchText
-            text="Full Stack Developer"
-            className="text-6xl md:text-8xl font-bold mb-6 block"
-            neonColor="cyan"
-          />
+            <span className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse shadow-[0_0_10px_#00f3ff]"></span>
+            <span className="text-gray-200 font-mono text-sm tracking-widest uppercase">JUST BUILD IT </span>
+          </motion.div>
+          
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-2xl md:text-4xl text-gray-300 mb-8"
+            transition={{ delay: 0.3 }}
+            className="text-2xl md:text-4xl text-gray-300 mb-6 font-light leading-relaxed max-w-5xl mx-auto"
           >
-            Crafting digital experiences with{' '}
-            <span className="text-neon-magenta">cutting-edge</span> technology
+            Architecting <span className="text-neon-cyan font-bold text-shadow-cyan">High-Frequency</span> Trading Engines, <span className="text-neon-magenta font-bold text-shadow-magenta">Backtesting</span> Grids & Automated Infrastructure.
           </motion.h2>
-          <motion.div
+
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-4"
+            transition={{ delay: 0.5 }}
+            className="text-gray-400 font-mono text-sm md:text-base tracking-wide max-w-3xl mx-auto"
           >
-            <motion.a
-              href="#projects"
-              className="px-8 py-3 bg-transparent border-2 border-neon-cyan text-neon-cyan rounded-lg hover:bg-neon-cyan hover:text-dark-bg transition-all glow-cyan"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              View Projects
-            </motion.a>
-            <motion.a
-              href="#contact"
-              className="px-8 py-3 bg-neon-magenta text-dark-bg rounded-lg hover:bg-neon-pink transition-all glow-magenta font-semibold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get In Touch
-            </motion.a>
-          </motion.div>
+            Merging the depths of <span className="text-slate-200">Deep Tech</span> with the complexity of <span className="text-slate-200">Financial Markets</span>.
+          </motion.p>
         </motion.div>
       </div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, repeat: Infinity, repeatType: 'reverse', duration: 2 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="text-neon-cyan text-4xl"
-        >
-          ↓
-        </motion.div>
-      </motion.div>
     </section>
   )
 }
-
