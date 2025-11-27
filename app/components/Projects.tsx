@@ -3,7 +3,17 @@
 import { motion } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 
-const projects = [
+interface Project {
+  title: string
+  description: string
+  tech: string[]
+  color: string
+  text: string
+  live?: string
+  github?: string
+}
+
+const projects: Project[] = [
   {
     title: 'LEVITAS_ALGO_PLATFORM',
     description: 'High-performance live trading platform engineered for algorithmic execution in real-time markets. Optimized for low-latency order routing and custom execution strategies.',
